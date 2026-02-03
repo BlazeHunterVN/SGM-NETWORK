@@ -436,7 +436,7 @@ function showSection(section) {
         body.classList.add('non-home-bg');
     }
 
-    if (section === nationSection || section === contactSection || section === newsSection) {
+    if (section === nationSection || section === contactSection || section === newsSection || section === esportsSection) {
         body.classList.add('hide-footer');
     } else {
         body.classList.remove('hide-footer');
@@ -954,7 +954,7 @@ if (mobileLangSelector) {
     }
 }
 
-[imageGrid, newsImageGrid].forEach(grid => {
+[imageGrid, newsImageGrid, esportsImageGrid].forEach(grid => {
     if (grid) {
         grid.addEventListener('click', (e) => {
             const gridItem = e.target.closest('.grid-item');
@@ -963,7 +963,7 @@ if (mobileLangSelector) {
                 const id = parseInt(gridItem.dataset.id);
 
                 const data = nationData[key].images.find(img => img.id === id);
-                const isNews = key === 'news';
+                const isNews = key === 'news' || key === 'esports';
 
                 if (data) {
                     const t = translations[currentLanguage];
@@ -1162,6 +1162,7 @@ async function setupRealtimeSync() {
             if (path.startsWith('/nation/')) displayImages(key, false);
             else if (path === '/nation') displayImages('default', false);
             else if (path === '/news') displayImages('news', true);
+            else if (path === '/esports') displayImages('esports', true);
         })
         .subscribe();
 
