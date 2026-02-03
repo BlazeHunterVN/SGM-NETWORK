@@ -1,62 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="vKpEfaaix3tyf3KNuLOD4z3LE4K1_5RnaU_lwqDOD9U" />
     <meta name="robots" content="noindex, nofollow">
-    <title>Admin Panel - SGM Network | Authorized Access Only</title>
-    <meta name="description"
-        content="Admin Panel for SGM Network (sgmnetwork.vercel.app) - Authorized Personnel Only. This area is for managing Free Fire poster content and requires authentication. If you reached this page accidentally, please return to the homepage.">
-    <link rel="icon" type="image" href="/common/image/LOGO_FF_SHORT.png" />
-    <link rel="stylesheet" href="/admin/style.css?v=3.3.0">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Zone Posters Admin</title>
+    <link rel="icon" type="image" href="/assets/image/LOGO_FF_SHORT.png" />
+    <link rel="stylesheet" href="/admin/assets/css/style.css?v=3.5.1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .password-group {
-            position: relative !important;
-        }
-
-        .password-group input {
-            padding-right: 45px !important;
-        }
-
-        .toggle-password {
-            position: absolute !important;
-            right: 15px !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            cursor: pointer !important;
-            color: #888 !important;
-            z-index: 10 !important;
-            display: inline-block !important;
-        }
-
-        input::-ms-reveal,
-        input::-ms-clear {
-            display: none !important;
-        }
-
-        input::-webkit-contacts-auto-fill-button,
-        input::-webkit-credentials-auto-fill-button {
-            visibility: hidden !important;
-            position: absolute !important;
-            right: 0 !important;
-        }
-    </style>
 </head>
 
 <body>
 
     <div id="login-container" class="login-container">
         <div class="login-card">
-            <div style="text-align: center; margin-bottom: 25px;">
-                <img src="/common/image/LOGO_FF_SHORT.png" alt="SGM Network Logo"
-                    style="width: 60px; height: 60px; margin-bottom: 10px;">
-                <h2 style="margin: 10px 0 5px 0; font-size: 1.5rem;">Admin Login</h2>
-                <p style="color: #666; font-size: 0.85rem; margin: 0;">SGM Network - Free Fire</p>
-            </div>
+            <div id="lottie-animation" style="width: 220px; height: 220px; margin: 0 auto -45px;"></div>
+            <h2>Login Admin</h2>
+            <p style="font-size: 0.8rem; color: #888; margin-top: -5px; margin-bottom: 20px;">Private Admin Portal -
+                Unofficial Fan Site</p>
 
             <div id="login-error" class="error-message" style="display: none;"></div>
 
@@ -64,98 +29,85 @@
                 <div class="form-group">
                     <input type="email" id="email-input" placeholder="Email">
                 </div>
-                <div class="form-group password-group">
-                    <input type="password" id="access-key-input" placeholder="Password">
-                    <i class="fas fa-eye toggle-password" id="toggle-password"></i>
+                <div class="form-group">
+                    <div class="password-wrapper">
+                        <input type="password" id="access-key-input" placeholder="Password">
+                        <i class="fas fa-eye toggle-password" id="toggle-login-password"></i>
+                    </div>
                 </div>
-                <button id="btn-key-login" class="btn btn-primary">Sign In</button>
+                <button id="btn-key-login" class="btn btn-primary">Login</button>
             </div>
-
-            <div class="divider">
-                <span>Or</span>
-            </div>
-
-            <button id="btn-google-login" class="btn btn-google">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png"
-                    alt="Google" style="width: 20px; height: 20px;">Google</button>
         </div>
     </div>
 
     <div id="dashboard-container" class="dashboard-container" style="display: none;">
-        <header class="dashboard-header">
-            <div class="header-left">
-                <button id="sidebar-toggle" class="sidebar-toggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h1>ADMIN DASHBOARD</h1>
-            </div>
-            <button id="btn-logout" class="btn-logout">LOGOUT</button>
-        </header>
-
         <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+        <!-- Mobile Navigation Trigger -->
+        <button id="mobile-toggle-btn" class="mobile-toggle-btn">
+            <i class="fas fa-bars"></i>
+        </button>
 
         <main class="dashboard-main">
             <aside class="sidebar">
+                <div class="sidebar-header">
+                    <button id="sidebar-toggle" class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <span class="sidebar-title">ADMIN</span>
+                </div>
                 <nav class="sidebar-nav">
-                    <button class="tab-link" data-tab="grant-access" id="nav-grant-access" style="display: none;">
-                        <i class="fas fa-user-shield"></i> <span>GRANT ACCESS</span>
+                    <button class="tab-link" data-tab="home-settings">
+                        <i class="fas fa-home"></i> <span>HOME SETTING</span>
                     </button>
                     <button class="tab-link active" data-tab="banners">
                         <i class="fas fa-image"></i> <span>BANNER</span>
                     </button>
-                    <button class="tab-link" data-tab="home-settings">
-                        <i class="fas fa-home"></i> <span>HOME SETTING</span>
+                    <button class="tab-link" data-tab="banner-expired">
+                        <i class="fas fa-history"></i> <span>BANNER EXPIRED</span>
+                    </button>
+                    <button class="tab-link" data-tab="news">
+                        <i class="fas fa-newspaper"></i> <span>NEWS</span>
+                    </button>
+                    <button class="tab-link" data-tab="esports">
+                        <i class="fas fa-gamepad"></i> <span>ESPORTS</span>
+                    </button>
+                    <button class="tab-link" data-tab="grant-access" id="tab-link-grant-access">
+                        <i class="fas fa-user-shield"></i> <span>GRANT ACCESS</span>
                     </button>
                 </nav>
+                <div class="sidebar-footer">
+                    <button id="btn-logout" class="btn-logout sidebar-logout">
+                        <i class="fas fa-sign-out-alt"></i> <span>LOGOUT</span>
+                    </button>
+                </div>
             </aside>
 
             <div class="tab-content">
-                <section id="grant-access-tab" class="tab-pane">
+                <!-- Home Settings Tab -->
+                <section id="home-settings-tab" class="tab-pane">
                     <section class="admin-card">
-                        <div class="card-header">
-                            <h3>GRANT ACCESS</h3>
+                        <div class="card-header" id="header-home-settings">
+                            <h3>HOME BACKGROUND MANAGEMENT</h3>
                             <i class="fas fa-chevron-up toggle-btn"></i>
                         </div>
-                        <form id="grant-access-form">
-                            <input type="hidden" id="is-edit-admin" value="false">
+                        <form id="home-settings-form">
                             <div class="form-group">
-                                <label for="admin-email">EMAIL</label>
-                                <input type="email" id="admin-email" required placeholder="admin@gmail.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="admin-key">PASSWORD</label>
-                                <input type="text" id="admin-key" required placeholder="password">
-                            </div>
-                            <div class="form-group">
-                                <label for="admin-role">ROLE</label>
-                                <select id="admin-role" required>
-                                    <option value="admin">Admin</option>
-                                    <option value="Senior Admin">Senior Admin</option>
-                                </select>
+                                <label for="home-bg-pc">PC BACKGROUND URL (IMAGE)</label>
+                                <input type="text" id="home-bg-pc" placeholder="https://...">
                             </div>
 
-                            <button type="submit" id="btn-save-admin" class="btn btn-primary-full">ADD USER</button>
-                            <button type="button" id="btn-cancel-admin" class="btn btn-danger"
-                                style="margin-top: 10px; display: none;">CANCEL</button>
+                            <div class="form-group">
+                                <label for="home-bg-mobile">MOBILE BACKGROUND URL (IMAGE)</label>
+                                <input type="text" id="home-bg-mobile" placeholder="https://...">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary-full">SAVE SETTINGS</button>
                         </form>
                     </section>
-
-                    <div class="banner-list-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>EMAIL</th>
-                                    <th>PASSWORD</th>
-                                    <th>ROLE</th>
-                                    <th>ACTION</th>
-                                </tr>
-                            </thead>
-                            <tbody id="admin-table-body">
-                            </tbody>
-                        </table>
-                    </div>
                 </section>
 
+                <!-- Banner Management Tab -->
                 <section id="banners-tab" class="tab-pane active">
                     <section class="admin-card">
                         <div class="card-header">
@@ -170,13 +122,6 @@
                                 <input type="text" id="banner-title">
                             </div>
 
-                            <div class="form-group">
-                                <label for="banner-type">TYPE</label>
-                                <select id="banner-type">
-                                    <option value="NATION">NATION</option>
-                                    <option value="NEWS">NEWS</option>
-                                </select>
-                            </div>
 
                             <div class="form-group">
                                 <label for="banner-nation-key">REGION</label>
@@ -189,7 +134,6 @@
                                     <option value="singapore">SINGAPORE</option>
                                     <option value="taiwan">TAIWAN</option>
                                     <option value="thailand">THAILAND</option>
-                                    <option value="news">NEWS</option>
                                 </select>
                             </div>
 
@@ -204,7 +148,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="banner-start-date">START DATE / POSTING DATE</label>
+                                <label for="banner-start-date">START DATE</label>
                                 <input type="text" id="banner-start-date" placeholder="nn/mm/yyyy">
                             </div>
 
@@ -222,7 +166,6 @@
                             <span>FILTER BANNERS</span>
                             <input type="text" id="filter-date-from" placeholder="nn/mm/yyyy">
                             <input type="text" id="filter-date-to" placeholder="nn/mm/yyyy">
-                            <button id="btn-apply-filter" class="btn btn-info">APPLY FILTER</button>
 
                             <select id="filter-nation" class="filter-select">
                                 <option value="all">ALL REGIONS</option>
@@ -236,6 +179,7 @@
                                 <option value="thailand">THAILAND</option>
                                 <option value="news">NEWS</option>
                             </select>
+                            <button id="btn-apply-filter" class="btn btn-info">APPLY FILTER</button>
 
                             <button id="btn-delete-selected" class="btn btn-danger" style="display: none;">DELETE
                                 SELECTED</button>
@@ -261,31 +205,220 @@
                     </div>
                 </section>
 
-                <section id="home-settings-tab" class="tab-pane">
+                <!-- Banner Expired Tab -->
+                <section id="banner-expired-tab" class="tab-pane">
                     <section class="admin-card">
                         <div class="card-header">
-                            <h3>HOME BACKGROUND MANAGEMENT</h3>
+                            <h3>EXPIRED BANNERS</h3>
+                            <i class="fas fa-chevron-up toggle-btn"></i>
                         </div>
-                        <form id="home-settings-form">
-                            <div class="form-group">
-                                <label for="home-bg-pc">PC BACKGROUND URL (IMAGE/VIDEO)</label>
-                                <input type="text" id="home-bg-pc" placeholder="https://...">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="home-bg-mobile">MOBILE BACKGROUND URL (IMAGE)</label>
-                                <input type="text" id="home-bg-mobile" placeholder="https://...">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary-full">SAVE SETTINGS</button>
-                        </form>
+                        <div class="banner-list-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;"><input type="checkbox" id="select-all-expired"></th>
+                                        <th>IMAGE</th>
+                                        <th>TITLE</th>
+                                        <th>REGION</th>
+                                        <th>END DATE</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="expired-table-body">
+                                </tbody>
+                            </table>
+                            <button id="btn-delete-expired" class="btn btn-danger"
+                                style="margin-top: 10px; display: none;">DELETE SELECTED</button>
+                        </div>
                     </section>
                 </section>
+
+                <!-- News Tab -->
+                <section id="news-tab" class="tab-pane">
+                    <section class="admin-card">
+                        <div class="card-header">
+                            <h3>ADD NEW</h3>
+                            <i class="fas fa-chevron-up toggle-btn" id="toggle-news-form"></i>
+                        </div>
+                        <form id="news-form">
+                            <input type="hidden" id="news-id">
+                            <input type="hidden" id="news-type" value="NEWS">
+
+                            <div class="form-group">
+                                <label for="news-title">TITLE</label>
+                                <input type="text" id="news-title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="news-url">IMAGE URL</label>
+                                <input type="text" id="news-url" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="news-link">URL ACCESS</label>
+                                <input type="text" id="news-link">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="news-posting-date">POSTING DATE</label>
+                                <input type="text" id="news-posting-date" placeholder="nn/mm/yyyy">
+                            </div>
+
+                            <button type="submit" id="btn-save-news" class="btn btn-primary-full">ADD NEWS</button>
+                        </form>
+                    </section>
+
+                    <section class="filter-section">
+                        <div class="filter-container">
+                            <span>FILTER NEWS</span>
+                            <input type="text" id="filter-news-from" placeholder="nn/mm/yyyy">
+                            <input type="text" id="filter-news-to" placeholder="nn/mm/yyyy">
+                            <button id="btn-apply-news-filter" class="btn btn-info">APPLY FILTER</button>
+                        </div>
+                    </section>
+
+                    <div class="banner-list-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;"><input type="checkbox" id="select-all-news"></th>
+                                    <th>IMAGE</th>
+                                    <th>TITLE</th>
+                                    <th>POSTING DATE</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody id="news-table-body">
+                            </tbody>
+                        </table>
+                        <button id="btn-delete-news-selected" class="btn btn-danger"
+                            style="margin-top: 10px; display: none;">DELETE SELECTED</button>
+                    </div>
+                </section>
+
+                </section>
+
+                <!-- Esports Tab -->
+                <section id="esports-tab" class="tab-pane">
+                    <section class="admin-card">
+                        <div class="card-header">
+                            <h3>ADD ESPORTS NEWS</h3>
+                            <i class="fas fa-chevron-up toggle-btn" id="toggle-esports-form"></i>
+                        </div>
+                        <form id="esports-form">
+                            <input type="hidden" id="esports-id">
+                            <input type="hidden" id="esports-type" value="ESPORTS">
+
+                            <div class="form-group">
+                                <label for="esports-title">TITLE</label>
+                                <input type="text" id="esports-title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="esports-url">IMAGE URL</label>
+                                <input type="text" id="esports-url" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="esports-link">URL ACCESS</label>
+                                <input type="text" id="esports-link">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="esports-posting-date">POSTING DATE</label>
+                                <input type="text" id="esports-posting-date" placeholder="nn/mm/yyyy">
+                            </div>
+
+                            <button type="submit" id="btn-save-esports" class="btn btn-primary-full">ADD
+                                ESPORTS</button>
+                        </form>
+                    </section>
+
+                    <section class="filter-section">
+                        <div class="filter-container">
+                            <span>FILTER ESPORTS</span>
+                            <input type="text" id="filter-esports-from" placeholder="nn/mm/yyyy">
+                            <input type="text" id="filter-esports-to" placeholder="nn/mm/yyyy">
+                            <button id="btn-apply-esports-filter" class="btn btn-info">APPLY FILTER</button>
+                        </div>
+                    </section>
+
+                    <div class="banner-list-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;"><input type="checkbox" id="select-all-esports"></th>
+                                    <th>IMAGE</th>
+                                    <th>TITLE</th>
+                                    <th>POSTING DATE</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody id="esports-table-body">
+                            </tbody>
+                        </table>
+                        <button id="btn-delete-esports-selected" class="btn btn-danger"
+                            style="margin-top: 10px; display: none;">DELETE SELECTED</button>
+                    </div>
+                </section>
+
+                <!-- Grant Access Tab -->
+                <section id="grant-access-tab" class="tab-pane">
+                    <section class="admin-card">
+                        <div class="card-header" id="header-grant-form">
+                            <h3>GRANT ACCESS</h3>
+                            <i class="fas fa-chevron-up toggle-btn"></i>
+                        </div>
+                        <form id="grant-access-form">
+                            <div class="form-group">
+                                <label for="grant-email">EMAIL</label>
+                                <input type="email" id="grant-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="grant-password">PASSWORD</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="grant-password" required>
+                                    <i class="fas fa-eye toggle-password" id="toggle-grant-password"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="grant-role">ROLE</label>
+                                <select id="grant-role">
+                                    <option value="admin">Admin</option>
+                                    <option value="senior_admin">Senior Admin</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary-full">ADD ADMIN</button>
+                        </form>
+                    </section>
+
+                    <section class="admin-card" style="margin-top: 2rem;">
+                        <div class="card-header">
+                            <h3>ADMIN LIST</h3>
+                            <i class="fas fa-chevron-up toggle-btn"></i>
+                        </div>
+                        <div class="banner-list-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>EMAIL</th>
+                                        <th>ROLE</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-list-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+
             </div>
         </main>
     </div>
 
-    <script src="/admin/app.js?v=3.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/admin/assets/js/app.js?v=3.5.1"></script>
 </body>
 
 </html>
