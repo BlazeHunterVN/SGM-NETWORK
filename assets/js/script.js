@@ -900,7 +900,7 @@ function populateNationDropdown() {
 
     dropdownMenu.innerHTML = '';
 
-    Object.keys(initialNationData).filter(key => key !== 'news' && key !== 'default').forEach(key => {
+    Object.keys(initialNationData).filter(key => key !== 'news' && key !== 'default' && key !== 'esports').forEach(key => {
         const li = document.createElement('li');
         const a = document.createElement('a');
 
