@@ -1,6 +1,6 @@
 {
-  "name": "Free Fire Elite Portal",
-  "short_name": "FF Posters",
+  "name": "SGM Network",
+  "short_name": "SGM Network",
   "description": "Discover the latest Free Fire posters, event banners, and news from all regions",
   "start_url": "/",
   "display": "standalone",
@@ -21,7 +21,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["games", "entertainment", "news"],
+  "categories": [
+    "games",
+    "entertainment",
+    "news"
+  ],
   "lang": "en",
   "dir": "ltr",
   "scope": "/",

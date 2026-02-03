@@ -90,10 +90,7 @@ const translations = {
         'check_back': 'VUI LÒNG KIỂM TRA LẠI SAU.',
         'check_back_news': 'VUI LÒNG KIỂM TRA LẠI SAU ĐỂ CẬP NHẬT TIN TỨC MỚI NHẤT.',
         'check_back_esports': 'VUI LÒNG KIỂM TRA LẠI SAU ĐỂ CẬP NHẬT TIN TỨC ESPORTS MỚI NHẤT.',
-        'download_image': 'TẢI ẢNH VỀ THIẾT BỊ',
-        'latest_news_heading': 'TIN TỨC MỚI NHẤT',
-        'esports_news_heading': 'TIN TỨC ESPORTS',
-        'see_all': 'Xem Tất Cả →'
+        'download_image': 'TẢI ẢNH VỀ THIẾT BỊ'
     },
     'default': {
         'home_link': 'HOME',
@@ -123,10 +120,7 @@ const translations = {
         'check_back': 'PLEASE CHECK BACK LATER.',
         'check_back_news': 'PLEASE CHECK BACK LATER FOR THE LATEST NEWS.',
         'check_back_esports': 'PLEASE CHECK BACK LATER FOR THE LATEST ESPORTS NEWS.',
-        'download_image': 'DOWNLOAD IMAGE',
-        'latest_news_heading': 'LATEST NEWS',
-        'esports_news_heading': 'ESPORTS NEWS',
-        'see_all': 'See All →'
+        'download_image': 'DOWNLOAD IMAGE'
     }
 };
 
@@ -163,8 +157,6 @@ const newsHeading = document.getElementById('news-heading');
 const esportsHeading = document.getElementById('esports-heading');
 const newsImageGrid = document.getElementById('news-image-grid');
 const esportsImageGrid = document.getElementById('esports-image-grid');
-const homeNewsGrid = document.getElementById('home-news-grid');
-const homeEsportsGrid = document.getElementById('home-esports-grid');
 const gridOverlay = document.getElementById('grid-overlay');
 const overlayTitle = document.getElementById('overlay-title');
 const overlayDate = document.getElementById('overlay-date');
@@ -286,9 +278,6 @@ function changeLanguageAndReload(langKey) {
         } else if (currentPath === '/esports') {
             displayImages('esports', true);
         }
-
-        // Always render home page preview grids when data is fetched
-        renderHomePreviewGrids();
     }
 }
 
@@ -839,130 +828,6 @@ function displayImages(key, isNews = false) {
     });
 }
 
-// Render Home Page Preview Grids (Latest 3 items)
-function renderHomePreviewGrids() {
-    if (!homeNewsGrid || !homeEsportsGrid) return;
-
-    const t = translations[currentLanguage];
-
-    // Render Latest News
-    const newsItems = nationData['news']?.images || [];
-    const latestNews = newsItems.slice(0, 3);
-
-    homeNewsGrid.innerHTML = '';
-    latestNews.forEach(imageData => {
-        const gridItem = document.createElement('div');
-        gridItem.classList.add('grid-item');
-        gridItem.dataset.key = 'news';
-        gridItem.dataset.id = imageData.id;
-
-        const imgElement = document.createElement('img');
-        const altText = imageData.title || t['no_title'];
-        const finalAttributes = getOptimizedImageAttributes(imageData.url, altText);
-
-        imgElement.loading = 'lazy';
-        imgElement.decoding = 'async';
-        Object.assign(imgElement, finalAttributes);
-
-        imgElement.onerror = () => {
-            const updatingDiv = document.createElement('div');
-            updatingDiv.textContent = 'Updating...';
-            updatingDiv.classList.add('updating-message');
-            if (imgElement.parentNode) {
-                imgElement.parentNode.replaceChild(updatingDiv, imgElement);
-            }
-        };
-
-        gridItem.appendChild(imgElement);
-
-        // Add metadata container (category + date)
-        const metaContainer = document.createElement('div');
-        metaContainer.classList.add('grid-item-meta');
-
-        const categoryBadge = document.createElement('span');
-        categoryBadge.classList.add('category-badge');
-        categoryBadge.textContent = currentLanguage === 'vietnam' ? 'CẬP NHẬT' : 'UPDATE';
-        metaContainer.appendChild(categoryBadge);
-
-        if (imageData.startDate) {
-            const dateBadge = document.createElement('span');
-            dateBadge.classList.add('date-badge');
-            dateBadge.textContent = imageData.startDate;
-            metaContainer.appendChild(dateBadge);
-        }
-
-        gridItem.appendChild(metaContainer);
-
-        const titleElement = document.createElement('p');
-        titleElement.classList.add('grid-item-title');
-        titleElement.textContent = altText;
-        gridItem.appendChild(titleElement);
-
-        homeNewsGrid.appendChild(gridItem);
-    });
-
-    // Render Latest Esports
-    const esportsItems = nationData['esports']?.images || [];
-    const latestEsports = esportsItems.slice(0, 3);
-
-    homeEsportsGrid.innerHTML = '';
-    latestEsports.forEach(imageData => {
-        const gridItem = document.createElement('div');
-        gridItem.classList.add('grid-item');
-        gridItem.dataset.key = 'esports';
-        gridItem.dataset.id = imageData.id;
-
-        const imgElement = document.createElement('img');
-        const altText = imageData.title || t['no_title'];
-        const finalAttributes = getOptimizedImageAttributes(imageData.url, altText);
-
-        imgElement.loading = 'lazy';
-        imgElement.decoding = 'async';
-        Object.assign(imgElement, finalAttributes);
-
-        imgElement.onerror = () => {
-            const updatingDiv = document.createElement('div');
-            updatingDiv.textContent = 'Updating...';
-            updatingDiv.classList.add('updating-message');
-            if (imgElement.parentNode) {
-                imgElement.parentNode.replaceChild(updatingDiv, imgElement);
-            }
-        };
-
-        gridItem.appendChild(imgElement);
-
-        // Add metadata container (category + date)
-        const metaContainer = document.createElement('div');
-        metaContainer.classList.add('grid-item-meta');
-
-        const categoryBadge = document.createElement('span');
-        categoryBadge.classList.add('category-badge', 'esports-badge');
-        categoryBadge.textContent = currentLanguage === 'vietnam' ? 'THỂ THAO' : 'ESPORTS';
-        metaContainer.appendChild(categoryBadge);
-
-        if (imageData.startDate) {
-            const dateBadge = document.createElement('span');
-            dateBadge.classList.add('date-badge');
-            dateBadge.textContent = imageData.startDate;
-            metaContainer.appendChild(dateBadge);
-        }
-
-        gridItem.appendChild(metaContainer);
-
-        const titleElement = document.createElement('p');
-        titleElement.classList.add('grid-item-title');
-        titleElement.textContent = altText;
-        gridItem.appendChild(titleElement);
-
-        homeEsportsGrid.appendChild(gridItem);
-    });
-
-    // Attach event listeners to See All links
-    attachSeeAllLinkListeners();
-}
-
-
-
 function handleNavLinkClick(e) {
     e.preventDefault();
 
@@ -1053,21 +918,6 @@ function populateNationDropdown() {
     attachAllNavLinkListeners();
 }
 
-// Attach event listeners to "See All" links
-function attachSeeAllLinkListeners() {
-    const seeAllLinks = document.querySelectorAll('.see-all-link');
-    seeAllLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const path = link.getAttribute('href');
-            const parts = path.split('/');
-            const key = parts[parts.length - 1];
-            handleRouting(path, key);
-        });
-    });
-}
-
-
 if (logoLink) {
     logoLink.addEventListener('click', (e) => {
         e.preventDefault();
@@ -1104,7 +954,7 @@ if (mobileLangSelector) {
     }
 }
 
-[imageGrid, newsImageGrid, esportsImageGrid, homeNewsGrid, homeEsportsGrid].forEach(grid => {
+[imageGrid, newsImageGrid].forEach(grid => {
     if (grid) {
         grid.addEventListener('click', (e) => {
             const gridItem = e.target.closest('.grid-item');
