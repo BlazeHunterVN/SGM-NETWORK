@@ -1,0 +1,33 @@
+{
+  "name": "SGM Network",
+  "short_name": "SGM Network",
+  "description": "Discover the latest Free Fire posters, event banners, and news from all regions",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/common/image/SGM_NETWORK_BLACK.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/common/image/SGM_NETWORK_BLACK.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "games",
+    "entertainment",
+    "news"
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "screenshots": []
+}
